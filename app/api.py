@@ -329,7 +329,7 @@ def send_mail(mail, team, title):
     try:
         return requests.post(
             "https://api.eu.mailgun.net/v3/mail.volchonok.media/messages",
-            auth=("api", "key-60808e60e192de1e03df73d6251cdce7"),
+            auth=("api", "<API key>"),
             data={"from": "app@mail.volchonok.media",
                 "to": [mail],
                 "subject": title,

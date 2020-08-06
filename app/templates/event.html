@@ -1,0 +1,115 @@
+{% extends 'blank.html' %}
+
+{% block body %}
+<div class="container-fluid">
+    <div class="card shadow mb-3">
+        <div class="card-header py-3">
+            <div class="row">
+                <div class="col">
+                    {% if edit %}
+                    <a class="btn btn-outline-dark" href="/event/add/">New event +</a>
+                    {% else %}
+                    <p class="text-dark m-0 font-weight-bold">Team: {{ team }}</p>
+                    {% endif %}
+                </div>
+                {% if edit %}
+                <div class="col-0" role="group" aria-label="Basic example">
+                    {% if new %}
+                    <a class="btn btn-dark" href="/event/">Event</a>
+                    <a class="btn btn-outline-dark" href="/event/old/">Archive</a>
+                    {% else %}
+                    <a class="btn btn-outline-dark" href="/event/">Event</a>
+                    <a class="btn btn-dark" href="/event/old/">Archive</a>
+                    {% endif %}
+                </div>
+                {% else %}
+                <div class=" col-0" role="group" aria-label="Basic example">
+                    {% if new %}
+                    <a class="btn-sm btn-dark" href="/event/">Event</a>
+                    <a class="btn-sm btn-outline-dark" href="/event/old/">Archive</a>
+                    {% else %}
+                    <a class="btn-sm btn-outline-dark" href="/event/">Event</a>
+                    <a class="btn-sm btn-dark" href="/event/old/">Archive</a>
+                    {% endif %}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
+                <table class="table my-0" id="dataTable">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Type</th>
+                            <th>Date</th>
+                            {% if edit==True %}
+                            <th>Config</th>
+                            {% else %}
+                            <th>Choice</th>
+                            {% endif %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for el in event %}
+                        <tr>
+                            <td>{{ el.name }}</td>
+                            <td>{{ el.text }}</td>
+                            <td>{{ el.type_event }}</td>
+                            <td>
+                                {{ el.date_event.date() }}
+                                <br>
+                                {{ el.date_event.time() }}
+                            </td>
+                            {% if edit %}
+                            <td><a class="btn btn-dark btn-sm" {% if new==False %}style="color: currentColor;cursor: not-allowed;opacity: 0.5;text-decoration: none;"{% else %} href="{{ url_for('eventEdit', id=el.id) }}"{% endif %}>Edit</a></td>
+                            {% else %}
+                            <td>
+                                {% set vars = {'status': False} %}
+                                {% for move in movement %}
+                                    {% if move.event_id == el.id %}
+                                        <div class="btn-group" role="group" aria-label="Basic example">
+                                            {% if move.status %}
+                                            {% if vars.update({'status': True}) %} {% endif %}
+                                            <a class="btn btn-outline-danger btn-sm" {% if new==False %}style="color: currentColor;cursor: not-allowed;opacity: 0.5;text-decoration: none;"{% else %} href="{{ url_for('eventMove', choice=0, id=el.id) }}"{% endif %}>-</a>
+                                            <a class="btn btn-success btn-sm" {% if new==False %}style="color: currentColor;cursor: not-allowed;opacity: 0.5;text-decoration: none;"{% else %} href="{{ url_for('eventMove', choice=1, id=el.id) }}"{% endif %}>+</a>
+                                            {% elif move.status == False %}
+                                            {% if vars.update({'status': True}) %} {% endif %}
+                                            <a class="btn btn-danger btn-sm" {% if new==False %}style="color: currentColor;cursor: not-allowed;opacity: 0.5;text-decoration: none;"{% else %} href="{{ url_for('eventMove', choice=0, id=el.id) }}"{% endif %}>-</a>
+                                            <a class="btn btn-outline-success btn-sm" {% if new==False %}style="color: currentColor;cursor: not-allowed;opacity: 0.5;text-decoration: none;"{% else %} href="{{ url_for('eventMove', choice=1, id=el.id) }}"{% endif %}>+</a>       
+                                            {% endif %}
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                                {% if vars.status == False %}
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <a class="btn btn-outline-danger btn-sm" {% if new==False %}style="color: currentColor;cursor: not-allowed;opacity: 0.5;text-decoration: none;"{% else %} href="{{ url_for('eventMove', choice=0, id=el.id) }}"{% endif %}>-</a>
+                                    <a class="btn btn-outline-success btn-sm" {% if new==False %}style="color: currentColor;cursor: not-allowed;opacity: 0.5;text-decoration: none;"{% else %} href="{{ url_for('eventMove', choice=1, id=el.id) }}"{% endif %}>+</a>     
+                                </div>
+                                {% endif %}
+                            </td>
+                            {% endif %}
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Type</th>
+                            <th>Date</th>
+                            {% if edit %}
+                            <th>Config</th>
+                            {% else %}
+                            <th>Choice</th>
+                            {% endif %}
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,127 @@
+{% extends 'blank.html' %}
+
+{% block body %}
+<div class="container-fluid">
+    <div class="d-sm-flex justify-content-between align-items-center mb-4">
+        <h3 class="text-dark mb-0">{{ team.name }}</h3>
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-xl-3 mb-4">
+            <div class="card shadow border-left-primary py-2">
+                <div class="card-body">
+                    <div class="row align-items-center no-gutters">
+                        <div class="col mr-2">
+                            <div class="text-uppercase text-primary font-weight-bold text-xs mb-1"><span>Games</span></div>
+                            <div class="text-dark font-weight-bold h5 mb-0"><span>{{ game|length }}</span></div>
+                        </div>
+                        <div class="col-auto"><i class="fas fa-gamepad fa-2x text-gray-300"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-xl-3 mb-4">
+            <div class="card shadow border-left-success py-2">
+                <div class="card-body">
+                    <div class="row align-items-center no-gutters">
+                        <div class="col mr-2">
+                            <div class="text-uppercase text-success font-weight-bold text-xs mb-1"><span>Training</span></div>
+                            <div class="text-dark font-weight-bold h5 mb-0"><span>{{ training|length }}</span></div>
+                        </div>
+                        <div class="col-auto"><i class="fas fa-bolt fa-2x text-gray-300"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-xl-3 mb-4">
+            <div class="card shadow border-left-info py-2">
+                <div class="card-body">
+                    <div class="row align-items-center no-gutters">
+                        <div class="col mr-2">
+                            <div class="text-uppercase text-info font-weight-bold text-xs mb-1"><span>Post</span></div>
+                            <div class="row no-gutters align-items-center">
+                                <div class="col-auto">
+                                    <div class="text-dark font-weight-bold h5 mb-0 mr-3"><span>{{ post|length }}</span></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-auto"><i class="fas fa-book fa-2x text-gray-300"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-xl-3 mb-4">
+            <div class="card shadow border-left-warning py-2">
+                <div class="card-body">
+                    <div class="row align-items-center no-gutters">
+                        <div class="col mr-2">
+                            <div class="text-uppercase text-warning font-weight-bold text-xs mb-1"><span>Team members</span></div>
+                            <div class="text-dark font-weight-bold h5 mb-0"><span>{{ members|length }}</span></div>
+                        </div>
+                        <div class="col-auto"><i class="fas fa-users fa-2x text-gray-300"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-5 col-xl-4">
+            <div class="card shadow mb-4">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h6 class="text-primary font-weight-bold m-0">Event statistics</h6>
+                </div>
+                <div class="card-body">
+                    <div class="chart-area"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+                    <canvas data-bs-chart="{&quot;type&quot;:&quot;doughnut&quot;,&quot;data&quot;:{&quot;labels&quot;:[&quot;Games&quot;,&quot;Trainings&quot;],&quot;datasets&quot;:[{&quot;label&quot;:&quot;&quot;,&quot;backgroundColor&quot;:[&quot;#4e73df&quot;,&quot;#1cc88a&quot;],&quot;borderColor&quot;:[&quot;#ffffff&quot;,&quot;#ffffff&quot;],&quot;data&quot;:[{{ game|length }},{{ training|length }}]}]},&quot;options&quot;:{&quot;maintainAspectRatio&quot;:false,&quot;legend&quot;:{&quot;display&quot;:false},&quot;title&quot;:{}}}" style="display: block; width: 278px; height: 320px;" width="278" height="320" class="chartjs-render-monitor"></canvas></div>
+                    <div class="text-center small mt-4"><span class="mr-2"><i class="fas fa-circle text-primary"></i>Games</span><span class="mr-2"><i class="fas fa-circle text-success"></i>&nbsp;Trainings</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-7 col-xl-8">
+            <div class="card shadow mb-4">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h6 class="text-primary font-weight-bold m-0">Statistics</h6>
+                </div>
+                <div class="card-body">
+                    <div class="chart-area"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div><canvas data-bs-chart="{&quot;type&quot;:&quot;bar&quot;,&quot;data&quot;:{&quot;labels&quot;:[{% for el in count -%}{% if loop.index == loop.length %}&quot;{{el.name}}&quot;{% else %}&quot;{{el.name}}&quot;,{% endif %}{%- endfor %}],&quot;datasets&quot;:[{&quot;xAxisID&quot;:0,&quot;label&quot;:&quot;Amount&quot;,&quot;fill&quot;:true,&quot;data&quot;:[{% for el in count -%}{% if loop.index == loop.length %}{{el.count}}{% else %}{{el.count}},{% endif %}{%- endfor %}],&quot;backgroundColor&quot;:&quot;rgba(78, 115, 223, 0.3)&quot;,&quot;borderColor&quot;:&quot;rgba(78, 115, 223, 1)&quot;}]},&quot;options&quot;:{&quot;maintainAspectRatio&quot;:false,&quot;legend&quot;:{&quot;display&quot;:false},&quot;title&quot;:{},&quot;scales&quot;:{&quot;xAxes&quot;:[{&quot;gridLines&quot;:{&quot;color&quot;:&quot;rgb(234, 236, 244)&quot;,&quot;zeroLineColor&quot;:&quot;rgb(234, 236, 244)&quot;,&quot;drawBorder&quot;:false,&quot;drawTicks&quot;:false,&quot;borderDash&quot;:[&quot;2&quot;],&quot;zeroLineBorderDash&quot;:[&quot;2&quot;],&quot;drawOnChartArea&quot;:false},&quot;ticks&quot;:{&quot;fontColor&quot;:&quot;#858796&quot;,&quot;padding&quot;:20}}],&quot;yAxes&quot;:[{&quot;gridLines&quot;:{&quot;color&quot;:&quot;rgb(234, 236, 244)&quot;,&quot;zeroLineColor&quot;:&quot;rgb(234, 236, 244)&quot;,&quot;drawBorder&quot;:false,&quot;drawTicks&quot;:false,&quot;borderDash&quot;:[&quot;2&quot;],&quot;zeroLineBorderDash&quot;:[&quot;2&quot;]},&quot;ticks&quot;:{&quot;beginAtZero&quot;:true,&quot;fontColor&quot;:&quot;#858796&quot;,&quot;padding&quot;:20}}]}}}" style="display: block; width: 622px; height: 320px;" width="622" height="320" class="chartjs-render-monitor"></canvas></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-7 col-xl-8">
+            <div class="card shadow mb-4">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h6 class="text-primary font-weight-bold m-0">Upcoming event</h6>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
+                        <table class="table my-0" id="dataTable">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Type</th>
+                                    <th>Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% for i in range(1) if event|length > 0 %}
+                                <tr>
+                                    <td>{{ event[i].name }}</td>
+                                    <td>{{ event[i].type_event }}</td>
+                                    <td>
+                                        {{ event[i].date_event.date() }}
+                                        <br>
+                                        {{ event[i].date_event.time() }}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

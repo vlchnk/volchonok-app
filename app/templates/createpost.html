@@ -1,0 +1,44 @@
+{% extends 'blank.html' %}
+
+{% block body %}
+
+<div class="container-fluid">
+    <div class="row mb-3">
+        <div class="col-lg">
+            <div class="row">
+                <div class="col">
+                    <div class="card shadow mb-3">
+                        <div class="card-header py-3">
+                            <p class="text-dark m-0 font-weight-bold">Add new post</p>
+                        </div>
+                        <div class="card-body">
+                            <form action="/post/add/" method="POST">
+                                <div class="form-row">
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label for="name"><strong>Name</strong></label>
+                                            <input class="form-control" type="text" id='name' name="name" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label for="text">
+                                                <strong>Description</strong>
+                                            </label>
+                                            <textarea class="form-control" type="text" id='text' name="text" required rows="5"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group"><button class="btn btn-dark btn-sm" type="submit">Save post</button></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

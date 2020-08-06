@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Volchonok</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='/img/favicon.ico') }}" type="image/x-icon">
+    <link rel="stylesheet" href="{{ url_for('static', filename='/bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cabin:700">
+    <link rel="stylesheet" href="{{ url_for('static', filename='/fonts/font-awesome.min.css') }}">
+    <style>
+        .preloader {
+            background: black;
+            position: fixed;
+            height: 100%;
+            width: 100%;
+            left: 0px;
+            top: 0px;
+            z-index: 2;
+            transition: 1s all;
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .preloader .loader {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 15%;
+            height: auto;
+            animation: opacity 3s ease-in 0s infinite alternate-reverse;
+        }
+        
+        .done {
+            opacity: 0;
+            visibility: hidden;
+        }
+        
+        @keyframes opacity {
+            from {
+                opacity: 100%;
+            }
+            to {
+                opacity: 10%;
+            }
+        }
+    </style>
+</head>
+
+<body id="page-top">
+    <div class="preloader">
+        <div class="loader"><img src="{{ url_for('static', filename='/img/volchonok.svg') }}" alt="" style="width: 250px;"></div>
+    </div>
+    <script>
+        document.body.onload = function() {
+            setTimeout(function() {
+                var preloader = document.querySelector(".preloader");
+                console.log(preloader);
+                if (!preloader.classList.contains('done')) {
+                    preloader.classList.add('done');
+                };
+            }, 1000);
+        }
+    </script>
+    <nav class="navbar navbar-light navbar-expand-md navbar navbar-expand-lg fixed-top" id="mainNav">
+        <div class="container"><a class="navbar-brand js-scroll-trigger" href="#"></a><button data-toggle="collapse" class="navbar-toggler navbar-toggler-right" data-target="#navbarResponsive" type="button" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"
+                value="Menu"><i class="fa fa-bars"></i></button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="nav navbar-nav ml-auto">
+                    <li class="nav-item nav-link js-scroll-trigger" role="presentation"><a class="nav-link js-scroll-trigger" href="/login/">login</a></li>
+                    <li class="nav-item nav-link js-scroll-trigger" role="presentation"><a class="nav-link js-scroll-trigger" href="/register/">register</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <header class="masthead">
+        <div class="intro-body" style="background: url({{ url_for('static', filename='/img/gif-hd.gif') }}) center / cover no-repeat;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 mx-auto">
+                        <h1 class="brand-heading">volchonok</h1>
+                        <p class="intro-text">Plan events and manage your team.</p><a class="btn btn-link btn-circle" role="button" href="#about"><i class="fa fa-angle-double-down animated"></i></a></div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <section class="d-inline content-section text-center" id="about">
+        <div class="container">
+            <div class="row" style="padding-top: 50px;">
+                <div class="col-lg-8 mx-auto">
+                    <h2>About Volchonok</h2>
+                    <p>Volchonok - Here you can manage your team and event planning for your team.</p>
+                    <p>1. Create a team.</p>
+                    <p>2. Create events.</p>
+                    <p>3. Invite people to your team.</p>
+                    <p>4. Track your progress.</p>
+                    <p>5. Become Winners.</p>
+                    <p>The project uses a stack of <a href="https://palletsprojects.com/p/flask/" target="_blank">Flask</a> and <a href="https://www.sqlite.org/index.html" target="_blank">SQLite</a>. <a href="https://getbootstrap.com/" target="_blank">Bootstrap</a> is used for the frontend.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="download" class="download-section content-section text-center" style="background: url({{ url_for('static', filename='/img/volchonok-hd.png') }}) top / contain repeat;"></section>
+    <section class="d-inline content-section text-center" id="contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <h2>Contact us</h2>
+                    <ul class="list-inline banner-social-buttons">
+                        <li class="list-inline-item">&nbsp;<a class="btn btn-dark btn-lg btn-default" role="button" href="https://vk.com/volchonok.media" target="_blank"><i class="fa fa-vk fa-fw"></i><span class="network-name">&nbsp;VK</span></a></li>
+                        <li class="list-inline-item">&nbsp;<a class="btn btn-primary btn-lg btn-default" role="button" href="https://github.com/volchonokboy/volchonok-app" target="_blank"><i class="fa fa-github fa-fw"></i><span class="network-name">&nbsp;github</span></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="map-clean"></div>
+    <footer>
+        <div class="container my-auto">
+            <div class="text-center my-auto copyright"><span>Made with <img src="https://img.icons8.com/officexs/16/000000/hearts.png"/></span></div>
+        </div>
+    </footer>
+    <script src="{{ url_for('static', filename='/js/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+    <script src="{{ url_for('static', filename='/js/grayscale.js') }}"></script>
+</body>
+
+</html>

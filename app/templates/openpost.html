@@ -1,0 +1,32 @@
+{% extends 'blank.html' %}
+
+{% block body %}
+
+<div class="container-fluid">
+    <div class="row mb-3">
+        <div class="col-lg">
+            <div class="row">
+                <div class="col">
+                    <div style="margin-bottom: 20px;">
+                        <div class="card shadow mb-3">
+                            <div class="card shadow">
+                                <div class="card-header py-3">
+                                    <p class="text-dark m-0 font-weight-bold">{{ post.name }}</p>
+                                </div>
+                                <div class="card-body">
+                                    <span class="text-dark m-0">{{ post.text }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="vk_comments"></div>
+                    <script type="text/javascript">
+                    VK.Widgets.Comments("vk_comments", {limit: 10, attach: "*"});
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends 'blank.html' %}
+
+{% block body %}
+<div class="container-fluid">
+        {% if post%}
+        {% if edit %}
+        <div class="d-sm-flex justify-content-between align-items-center mb-4">
+            <a class="btn btn-outline-dark" href="/post/add/">New post</a>
+            <p class="text-dark mb-0">Post: {{ post|length }}</p>
+        </div>
+        {% for el in post %}
+        <div style="margin-bottom: 20px;">
+            <div class="card shadow">
+                <div class="card-header py-3">
+                    <p class="text-dark m-0 font-weight-bold">{{ el.name }}</p>
+                </div>
+                <div class="card-body">
+                    <p class="text-dark m-0">{{ el.text }}</p>
+                </div>
+                <div class="d-sm-flex justify-content-between align-items-center mb-3">
+                    <a class="btn btn-outline-dark mb-0" style="margin-left: 1rem;" href="{{ url_for('editPost', id=el.id) }}">Edit</a>
+                    <a class="btn btn-outline-danger" style="margin-right: 1rem;" href="{{ url_for('postDelete', id=el.id) }}">Delete</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% else %}
+        {% for el in post %}
+        <div style="margin-bottom: 20px;">
+            <div class="card shadow">
+                <div class="card-header py-3">
+                    <p class="text-dark m-0 font-weight-bold">{{ el.name }}</p>
+                </div>
+                <div class="card-body">
+                    <span class="text-dark m-0">{{ el.text }}</span>
+                </div>
+                <div class="d-sm-flex justify-content-between align-items-center mb-3">
+                    <a class="btn btn-outline-dark mb-0" style="margin-left: 1rem;" href="{{ url_for('openPost', id=el.id) }}">Open</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% else %}
+        {% if edit %}
+        <a class="btn btn-outline-dark" href="/post/add/">New post</a>
+        {% else %}
+        <div class="container">
+            <p class="text-dark m-0">No post :c</p>
+        </div>
+        {% endif %}
+        {% endif %}
+</div>
+
+{% endblock %}
